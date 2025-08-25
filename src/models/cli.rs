@@ -21,7 +21,7 @@ pub struct Cli {
 pub struct GoArgs {
     /// Specific command name to run immediately [OPTIONAL]
     pub name: Option<String>,
-    /// Overwrite executable. Example: ("dotnet", "git") or full path to .exe [OPTIONAL]
+    /// Overwrite executable. Example: ("dotnet run", "git commit") or full path to .exe [OPTIONAL]
     pub exe: Option<Exe>
 }
 
@@ -30,7 +30,7 @@ pub struct GoArgs {
 pub struct AddArgs {
     /// Specific unique command name
     pub name: String,
-    /// Executable ("dotnet", "git") or full path to .exe
+    /// Executable ("dotnet run", "git commit") or full path to .exe
     pub exe: Exe,
     /// Arguments for your exe [OPTIONAL]
     #[arg(long = "args")]
@@ -49,7 +49,7 @@ pub struct DeleteArgs {
 pub struct UpdateArgs {
     /// Specific unique command name to override
     pub name: String,
-    /// Executable ("dotnet", "git") or full path to .exe to override [OPTIONAL]
+    /// Executable ("dotnet run", "git commit") or full path to .exe to override [OPTIONAL]
     pub exe: Option<Exe>,
     /// Arguments for your exe to override [OPTIONAL]
     #[arg(long = "args")]

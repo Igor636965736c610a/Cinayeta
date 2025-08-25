@@ -19,5 +19,8 @@ fn main() {
         Commands::Delete(args) => {
             println!("{:?}", args)
         }
+        Commands::Update(args) => {
+            println!("{:?}", args)
+        }
     }
 }
