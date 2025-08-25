@@ -1,7 +1,9 @@
 use clap::Parser;
-use crate::models::cli::{Cli, Commands};
+use crate::Cli::args::{Cli, Commands};
 
-mod models;
+mod Cli;
+mod shell;
+mod Core;
 
 fn main() {
     let cli = Cli::parse();
