@@ -37,17 +37,23 @@ pub struct AddArgs {
     pub args: Option<String>
 }
 
-#[derive(Debug, Clone)]
-pub enum Exe {
-    Program(String),
-    Path(PathBuf),
-}
-
 #[derive(Debug, Args)]
 #[command(help_template = "{usage}\n\x1b[1mExample:\x1b[0m  yeta delete my_command\n\n{all-args}")]
 pub struct DeleteArgs {
     /// Specific command name [OPTIONAL]
     pub name: Option<String>
+}
+
+#[derive(Debug, Args)]
+#[command(help_template = "{usage}\n\x1b[1mExample:\x1b[0m  yeta update \"my_command\" \"git reset\" --args \"--hard -f\"\n\n{all-args}")]
+pub struct UpdateArgs {
+    /// Specific unique command name to override
+    pub name: String,
+    /// Executable ("dotnet", "git") or full path to .exe to override [OPTIONAL]
+    pub exe: Option<Exe>,
+    /// Arguments for your exe to override [OPTIONAL]
+    #[arg(long = "args")]
+    pub args: Option<String>
 }
 
 #[derive(Subcommand, Debug)]
@@ -58,8 +64,16 @@ pub enum Commands {
     List,
     /// Add command <NAME> <EXE> [OPTIONAL]--args <ARGS>
     Add(AddArgs),
+    /// Update command <NAME> [OPTIONAL]<EXE> [OPTIONAL]--args <ARGS>
+    Update(UpdateArgs),
     /// Delete command  [OPTIONAL]<NAME>
     Delete(DeleteArgs)
+}
+
+#[derive(Debug, Clone)]
+pub enum Exe {
+    Program(String),
+    Path(PathBuf),
 }
 
 impl FromStr for Exe {
