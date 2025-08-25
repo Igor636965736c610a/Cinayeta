@@ -7,11 +7,17 @@ fn main() {
     let cli = Cli::parse();
 
     match &cli.commands {
-        Commands::Invoke(args) => {
+        Commands::Go(args) => {
             println!("test1 {:?}", args.name);
         }
         Commands::List => {
             println!("test2");
+        }
+        Commands::Add(args) => {
+            println!("{:?}", args)
+        }
+        Commands::Delete(args) => {
+            println!("{:?}", args)
         }
     }
 }
