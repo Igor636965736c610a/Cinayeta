@@ -2,7 +2,6 @@ use clap::Parser;
 use crate::cli::args::{Cli, Commands};
 
 mod cli;
-mod shell;
 mod core;
 
 fn main() {

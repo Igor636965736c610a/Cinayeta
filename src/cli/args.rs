@@ -6,7 +6,7 @@ use clap::{Args, Parser, Subcommand};
     \x1b[1m -> bold
     \x1b[4m -> cursive
     \x1b[0m -> reset style
- */
+*/
 
 #[derive(Parser, Debug)]
 #[command(author, version, about)]
@@ -22,6 +22,7 @@ pub struct GoArgs {
     /// Specific command name to run immediately [OPTIONAL]
     pub name: Option<String>,
     /// Overwrite executable. Example: ("dotnet run", "git commit") or full path to .exe [OPTIONAL]
+    #[arg(long = "exe", short = "e")]
     pub exe: Option<Exe>
 }
 
@@ -58,7 +59,7 @@ pub struct UpdateArgs {
 
 #[derive(Subcommand, Debug)]
 pub enum Commands {
-    /// Runs specific or selected command  [OPTIONAL]<NAME> [OPTIONAL]<EXE>
+    /// Runs specific or selected command  [OPTIONAL]<NAME> [OPTIONAL]-e <EXE>
     Go(GoArgs),
     /// List all commands.
     List,
