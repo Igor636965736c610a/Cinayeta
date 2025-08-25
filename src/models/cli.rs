@@ -17,23 +17,24 @@ pub struct Cli {
 }
 
 #[derive(Debug, Args)]
+#[command(help_template = "{usage}\n\x1b[1mExample:\x1b[0m  yeta go your_saved_command\n\n{all-args}")]
 pub struct GoArgs {
-    /// Specific command name to run immediately
+    /// Specific command name to run immediately [OPTIONAL]
     pub name: Option<String>,
-    /// Executable ("dotnet", "git") or full path to .exe
+    /// Overwrite executable. Example: ("dotnet", "git") or full path to .exe [OPTIONAL]
     pub exe: Option<Exe>
 }
 
 #[derive(Debug, Args)]
-#[command(help_template = "{usage}\n\n\x1b[1;4mExample:\x1b[0m git clean --args -dfx\n\n{all-args}")]
+#[command(help_template = "{usage}\n\x1b[1mExample:\x1b[0m  yeta add \"my_command\" \"git clean\" --args \"-dfx -i\"\n\n{all-args}")]
 pub struct AddArgs {
     /// Specific unique command name
     pub name: String,
     /// Executable ("dotnet", "git") or full path to .exe
     pub exe: Exe,
-    /// Arguments for your exe
-    #[arg(long = "args", num_args = 1.., allow_hyphen_values = true)]
-    pub args: Option<Vec<String>>
+    /// Arguments for your exe [OPTIONAL]
+    #[arg(long = "args")]
+    pub args: Option<String>
 }
 
 #[derive(Debug, Clone)]
@@ -43,20 +44,21 @@ pub enum Exe {
 }
 
 #[derive(Debug, Args)]
+#[command(help_template = "{usage}\n\x1b[1mExample:\x1b[0m  yeta delete my_command\n\n{all-args}")]
 pub struct DeleteArgs {
-    /// Specific command name
+    /// Specific command name [OPTIONAL]
     pub name: Option<String>
 }
 
 #[derive(Subcommand, Debug)]
 pub enum Commands {
-    /// Runs specific or selected command  [OPTIONAL]--name <NAME> [OPTIONAL]--exe <EXE>
+    /// Runs specific or selected command  [OPTIONAL]<NAME> [OPTIONAL]<EXE>
     Go(GoArgs),
     /// List all commands.
     List,
-    /// Add command  --name <NAME> --exe <EXE> [OPTIONAL]--args <ARGS>
+    /// Add command <NAME> <EXE> [OPTIONAL]--args <ARGS>
     Add(AddArgs),
-    /// Delete command  [OPTIONAL]--name <NAME>
+    /// Delete command  [OPTIONAL]<NAME>
     Delete(DeleteArgs)
 }
 
